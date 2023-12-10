@@ -1,14 +1,45 @@
-# Default values for demo.
+# Default values for common.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+
+global:
+  image:
+    repository: ""
+    tag: ""
 
 replicaCount: 1
 
 image:
   repository: nginx
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
   tag: ""
+
+args:
+  - poetry
+  - run
+  - uvicorn
+  - src.api.main:app
+  - --host
+  - 0.0.0.0
+  - --port 
+  - 9000
+
+livenessProbe:
+  enabled: false
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+readinessProbe:
+  enabled: false
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  
 
 imagePullSecrets: []
 nameOverride: ""
@@ -40,6 +71,7 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
+  enabled: false
   type: ClusterIP
   port: 80
 
