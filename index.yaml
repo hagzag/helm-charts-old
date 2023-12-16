@@ -14,6 +14,16 @@ entries:
   demo2:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-12-16T18:52:51.748727737Z"
+    description: A Helm chart for Kubernetes
+    digest: b6f9a625869b6042c93d906784f83170a460a4273e2ecde65799e9097400f48b
+    name: demo2
+    type: application
+    urls:
+    - https://github.com/hagzag/helm-charts/releases/download/demo2-0.1.1/demo2-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-11-30T19:48:37.293159866Z"
     description: A Helm chart for Kubernetes
     digest: 6b8b4c9c0f5538dade5e933c8a4ccca7d4bb81b271dc76aa0fdb7fe47c537b92
@@ -22,4 +32,20 @@ entries:
     urls:
     - https://github.com/hagzag/helm-charts/releases/download/demo2-0.1.0/demo2-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-30T19:48:37.293165496Z"
+  my-chart:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-12-16T18:52:51.873555925Z"
+    dependencies:
+    - alias: my-chart
+      name: common
+      repository: oci://ghcr.io/hagzag/charts
+      version: 0.2.0
+    description: A Helm chart for Kubernetes
+    digest: 5b35b2755e93eff7f4843f19eecc0fa96dda847cba9be7bd9a246e84a511ed87
+    name: my-chart
+    type: application
+    urls:
+    - https://github.com/hagzag/helm-charts/releases/download/my-chart-0.1.1/my-chart-0.1.1.tgz
+    version: 0.1.1
+generated: "2023-12-16T18:52:51.873565753Z"
