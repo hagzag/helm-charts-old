@@ -1,0 +1,6 @@
+dependencies:
+- name: common
+  repository: oci://ghcr.io/hagzag/charts
+  version: 0.2.0
+digest: sha256:d19f44effdf9771e74a6b1727f01ce4b9bf9e0fb7575595ca6fe2b6eee3985eb
+generated: "2023-12-16T16:10:15.665747+02:00"
