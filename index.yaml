@@ -43,6 +43,23 @@ entries:
     urls:
     - https://github.com/hagzag/helm-charts/releases/download/demo2-0.1.0/demo2-0.1.0.tgz
     version: 0.1.0
+  helm-example:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-05-10T10:37:26.591915133Z"
+    dependencies:
+    - import-values:
+      - defaults
+      name: common-helm-lib
+      repository: oci://ghcr.io/hagzag/charts
+      version: 0.1.0
+    description: A Helm chart for Kubernetes
+    digest: c4f6ed9ac0c90ad30128fbc6a58ca0e8ffabe9535d00dc43c5c9d351b9f638b9
+    name: helm-example
+    type: application
+    urls:
+    - https://github.com/hagzag/helm-charts/releases/download/helm-example-0.1.0/helm-example-0.1.0.tgz
+    version: 0.1.0
   my-chart:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -59,4 +76,4 @@ entries:
     urls:
     - https://github.com/hagzag/helm-charts/releases/download/my-chart-0.1.1/my-chart-0.1.1.tgz
     version: 0.1.1
-generated: "2024-05-10T10:11:02.894306348Z"
+generated: "2024-05-10T10:37:26.591928398Z"
