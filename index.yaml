@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  common-helm-lib:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-05-10T10:11:02.894293103Z"
+    description: A Helm chart for Kubernetes
+    digest: 87dd08f0f21cc645a8ee80296d6c9ecbfe1250b750af95265c802464483de8f7
+    name: common-helm-lib
+    type: library
+    urls:
+    - https://github.com/hagzag/helm-charts/releases/download/common-helm-lib-0.1.0/common-helm-lib-0.1.0.tgz
+    version: 0.1.0
   demo:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -48,4 +59,4 @@ entries:
     urls:
     - https://github.com/hagzag/helm-charts/releases/download/my-chart-0.1.1/my-chart-0.1.1.tgz
     version: 0.1.1
-generated: "2023-12-16T18:52:51.873565753Z"
+generated: "2024-05-10T10:11:02.894306348Z"
