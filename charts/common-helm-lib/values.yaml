@@ -1,0 +1,299 @@
+## @section exports".
+exports:
+  ## @section defaults".
+  ## Default values for common-lib.
+  ## This is a YAML-formatted file.
+  ## Declare variables to be passed into your templates.
+  defaults:
+    ## @param exports.defaults.replicaCount [number, nullable] Description
+    replicaCount: 1
+    ## @section image".
+    ## @param exports.defaults.image.repository  image repository
+    ## @param exports.defaults.image.pullPolicy image pullPolicy
+    ## @param exports.defaults.image.tag image tag
+    image:
+      repository: nginx
+      pullPolicy: IfNotPresent
+      # Overrides the image tag whose default is the chart appVersion.
+      tag: ""
+    ## @param exports.defaults.imagePullSecrets Image registry secret names as an array
+    imagePullSecrets: []
+    ## @param exports.defaults.nameOverride Default name override
+    nameOverride: ""
+    ## @param exports.defaults.fullnameOverride Default full name override
+    fullnameOverride: ""
+    ## @section serviceAccount".
+    ## @param exports.defaults.serviceAccount.create  Enabled / Disabeld service acount
+    ## @param exports.defaults.serviceAccount.annotations serviceAccount annotations
+    ## @param exports.defaults.serviceAccount.name serviceAccount name
+    serviceAccount:
+      # Specifies whether a service account should be created
+      create: false
+      # Annotations to add to the service account
+      annotations: {}
+      # The name of the service account to use.
+      # If not set and create is true, a name is generated using the fullname template
+      name: ""
+      ## @param exports.defaults.podAnnotations podAnnotations
+    podAnnotations: {}
+    ## @param exports.defaults.podSecurityContext podSecurityContext
+    podSecurityContext: {}
+    # fsGroup: 2000
+    ## @param exports.defaults.securityContext securityContext
+    securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+    ## @param exports.defaults.service - array of services such as: api, kafka
+    ## api:
+    ##   annotations: {}
+    ##   type: ClusterIP
+    ##   port: 80
+    service: []
+    ## @section ingress".
+    ingress:
+      ## @param exports.defaults.ingress.enabled Enable ingress record generation
+      ##
+      enabled: false
+      ## @param exports.defaults.ingress.className IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
+      className: ""
+      ## @param exports.defaults.ingress.annotations [object] Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
+      ## Use this parameter to set the required annotations for cert-manager, see
+      ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
+      annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+      ## @section hosts  An array with additional hostname(s) to be covered with the ingress record".
+      hosts:
+      ## @param exports.defaults.ingress.hosts[0].paths[0].path
+      ## @param exports.defaults.ingress.hosts[0].paths[0].pathType
+      ## - paths:
+      ##    - path: /
+      ##      pathType: Prefix
+      - paths:
+        - path: /
+          pathType: Prefix
+      ## @param exports.defaults.ingress.tls TLS configuration for additional hostname(s) to be covered with this ingress record
+      ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
+      ## e.g:
+      ## tls:
+      ##  - secretName: chart-example-tls
+      ##    hosts:
+      ##     - chart-example.local
+      ##
+      tls: []
+      #  - secretName: chart-example-tls
+      #    hosts:
+      #      - chart-example.local
+    ## ref: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
+    ## @param exports.defaults.resources The resources limits/requests for the chart-example containers
+    resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+    ## @section critical".
+    ## @param exports.defaults.critical.enabled Enabled/Disabeld for QOS
+    critical:
+      enabled: false
+    ## @section kedaautoscaler".
+    ## @param exports.defaults.kedaautoscaler.enabled Enabled/Disabeld the keda autoscaler
+    ## @param exports.defaults.kedaautoscaler.kind Deployment or Statefulsets
+    ## @param exports.defaults.kedaautoscaler.minReplicaCount Min number of replicas
+    ## @param exports.defaults.kedaautoscaler.maxReplicaCount Max number of replicas
+    ## @param exports.defaults.kedaautoscaler.pollingInterval How often KEDA polls to report new scale requests to the HPA
+    ## @param exports.defaults.kedaautoscaler.cooldownPeriod  How many seconds KEDA will wait before scaling to zero
+    ## @param exports.defaults.kedaautoscaler.advanced[0].horizontalPodAutoscalerConfig
+    ## @param exports.defaults.kedaautoscaler.advanced[0].horizontalPodAutoscalerConfig.behavior
+    ## @param exports.defaults.kedaautoscaler.advanced[0].horizontalPodAutoscalerConfig.behavior.scaleDown
+    ## @param exports.defaults.kedaautoscaler.advanced[0].horizontalPodAutoscalerConfig.behavior.scaleDown.stabilizationWindowSeconds
+    ## @param exports.defaults.kedaautoscaler.advanced[0].horizontalPodAutoscalerConfig.behavior.scaleDown.policies[0].type
+    ## @param exports.defaults.kedaautoscaler.advanced[0].horizontalPodAutoscalerConfig.behavior.scaleDown.policies[0].value
+    ## @param exports.defaults.kedaautoscaler.advanced[0].horizontalPodAutoscalerConfig.behavior.scaleDown.policies[0].periodSeconds
+    ## @param exports.defaults.kedaautoscaler.triggers[0].type
+    ## @param exports.defaults.kedaautoscaler.triggers[0].metadata[0].type
+    ## @param exports.defaults.kedaautoscaler.triggers[0].metadata[0].value
+    kedaautoscaler:
+      enabled: false
+      kind: Deployment
+      minReplicaCount: 1
+      maxReplicaCount: 5
+      pollingInterval: 5
+      cooldownPeriod: 30
+      advanced: {}
+      # advanced:
+      #   horizontalPodAutoscalerConfig:
+      #     behavior:
+      #       scaleDown:
+      #         stabilizationWindowSeconds: 300
+      #         policies:
+      #           - type: Percent
+      #             value: 100
+      #             periodSeconds: 15
+      triggers: {}
+      # triggers:
+      # - type: cpu
+      #   metadata:
+      #     type: Utilization
+      #     value: "80"
+    ## @section autoscaling".
+    ## @param exports.defaults.autoscaling.enabled Enabled/Disabeld the hpa
+    ## @param exports.defaults.autoscaling.kind Deployment or Statefulsets
+    ## @param exports.defaults.autoscaling.minReplicaCount Min number of replicas
+    ## @param exports.defaults.autoscaling.maxReplicaCount Max number of replicas
+    ## @param exports.defaults.autoscaling.metrics[0].type
+    ## @param exports.defaults.autoscaling.metrics[0].resource
+    ## @param exports.defaults.autoscaling.metrics[0].resource.name
+    ## @param exports.defaults.autoscaling.metrics[0].resource.target
+    ## @param exports.defaults.autoscaling.metrics[0].resource.target.type
+    ## @param exports.defaults.autoscaling.metrics[0].resource.target.averageUtilization  The cpu metrcis that cause the scaleup
+    autoscaling:
+      enabled: false
+      kind: Deployment
+      # Minimum number of workers created by HPA
+      minReplicaCount: 1
+      # Maximum number of workers created by HPA
+      maxReplicaCount: 5
+      # Specifications for which to use to calculate the desired replica count
+      ## @param exports.defaults.resources The resources limits/requests for the chart-example containers
+      metrics: {}
+      # This is used to determine the resource utilization and used by the HPA controller to scale the target up or down.
+      # To use resource utilization based scaling specify a metric source like this:
+      # metrics:
+      #   - type: Resource
+      #     resource:
+      #       name: cpu
+      #       target:
+      #         type: Utilization
+      #         averageUtilization: 80
+      # Scaling behavior of the target in both Up and Down directions
+      behavior: {}
+      # One or more scaling policies can be specified in the behavior section of the spec.
+      # When multiple policies are specified the policy which allows the highest amount of change is the policy which is selected by default.
+      # The following example shows this behavior while scaling down:
+      # behavior:
+      #   scaleDown:
+      #     policies:
+      #     - type: Pods
+      #       value: 4
+      #       periodSeconds: 60
+      #     - type: Percent
+      #       value: 10
+      #       periodSeconds: 60
+    ## @section exports.defaults.nodeSelector
+    ## @param exports.defaults.nodeSelector.role
+    ## nodeSelector:
+    ##   role: eks-cluster
+    nodeSelector:
+      role: tikal
+    ## @section exports.defaults.tolerations
+    ## @param exports.defaults.tolerations[0].key
+    ## @param exports.defaults.tolerations[0].operator
+    ## @param exports.defaults.tolerations[0].value
+    ## @param exports.defaults.tolerations[0].effect
+    ## tolerations:
+    ## - key: intention
+    ##   operator: Equal
+    ##   value: eks-cluster-mgt
+    ##   effect: NoSchedule
+    tolerations:
+    - key: "intention"
+      operator: "Equal"
+      value: "tikal"
+      effect: "NoSchedule"
+    ## @section exports.defaults.affinity
+    ## @param exports.defaults.affinity.nodeAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].weight
+    ## @param exports.defaults.affinity.nodeAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].preference.matchExpressions[0].key
+    ## @param exports.defaults.affinity.nodeAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].preference.matchExpressions[0].operator
+    ## @param exports.defaults.affinity.nodeAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].preference.matchExpressions[0].values
+    ## affinity:
+    ##   podAntiAffinity:
+    ##     preferredDuringSchedulingIgnoredDuringExecution:
+    ##      - weight: 100
+    ##        podAffinityTerm:
+    ##          labelSelector:
+    ##            matchExpressions:
+    ##              - key: "component"
+    ##                operator: In
+    ##                values:
+    ##                - zookeeper
+    ##          topologyKey: "topology.kubernetes.io/zone"
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+            - key: eks.amazonaws.com/capacityType
+              operator: In
+              values:
+              - SPOT
+    ## @param exports.defaults.topologySpreadConstraints
+    ## topologySpreadConstraints:
+    ##   - maxSkew: 1
+    ##     topologyKey: "topology.kubernetes.io/zone"
+    ##     whenUnsatisfiable: DoNotSchedule
+    ##     labelSelector:
+    ##       matchLabels:
+    ##         app: kafkatohttp
+    topologySpreadConstraints: {}
+    ## @section livenessProbe".
+    ## @param exports.defaults.livenessProbe.httpGet.path (/) The path
+    ## @param exports.defaults.livenessProbe.httpGet.port (http) the name of the port to listhen
+    livenessProbe:
+      httpGet:
+        path: /
+        port: http
+    ## @section readinessProbe".
+    ## @param exports.defaults.readinessProbe.httpGet.path (/) The path
+    ## @param exports.defaults.readinessProbe.httpGet.port (http) the name of the port to listhen
+    readinessProbe:
+      httpGet:
+        path: /
+        port: http
+    ## @section externalSecret".
+    ## @param exports.defaults.externalSecret.secretStoreName the name of the store
+    ## @param exports.defaults.externalSecret.secretStoreKind ( ClusterSecretStore/ SecretStore)
+    ## @param exports.defaults.externalSecret.refreshInterval intervale for external secret to refresh
+    externalSecret:
+      secretStoreName: ssm-aws # pragma: allowlist-secret not actually a secret
+      secretStoreKind: ClusterSecretStore # pragma: allowlist-secret not actually a secret
+      refreshInterval: 5m
+
+    ## @param exports.defaults.deployment array of key value
+    ## deployment:
+    ##   api: (The deployment name)
+    ##     envFrom:
+    ##       - configMapRef:
+    ##           name: my-config
+    ##       - secretRef:
+    ##           name: my-secret
+    ##     env:
+    ##       - name: environment
+    ##         value: default
+    ##     image:
+    ##       repository: nginx
+    ##       pullPolicy: IfNotPresent
+    ##       # Overrides the image tag whose default is the chart appVersion.
+    ##       tag: ""
+    deployment: []
+    ## @param exports.defaults.cronjob array of key value
+    ## cronjob
+    ##   example:
+    ##     schedule: "*/10 * * * *"
+    ##     successfulJobsHistoryLimit: "1"
+    ##     failedJobsHistoryLimit: "2"
+    ##     restartPolicy: "OnFailure"
+    ##     container:
+    ##       image: busybox
+    ##       command: ["/bin/sh","-c","echo 'test'"]
+    cronjob: []
