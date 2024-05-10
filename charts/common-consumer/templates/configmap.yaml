@@ -1,0 +1,47 @@
+{{- include "common-lib.configmap" (list $ . "example" ) -}}
+{{/*
+Default configuration
+*/}}
+{{- define "config.mydata.example" -}}
+data:
+  CLICKHOUSE_ADMIN_USER: ssm:///clickhouse-server/${ENV}/admin/user
+  CLICKHOUSE_ADMIN_PASSWORD: ssm:///clickhouse-server/${ENV}/admin/password # pragma: allowlist-secret not actually a secret
+  CLICKHOUSE_API_SERVER_USER: ssm:///clickhouse-server/service/api_server/user
+  CLICKHOUSE_API_SERVER_PASSWORD: ssm:///clickhouse-server/service/api_server/password # pragma: allowlist-secret not actually a secret
+  CLICKHOUSE_ANALYTICS_ENGINE_USER: ssm:///clickhouse-server/service/analytics_engine/user
+  CLICKHOUSE_ANALYTICS_ENGINE_PASSWORD: ssm:///clickhouse-server/service/analytics_engine/password # pragma: allowlist-secret not actually a secret
+  CLICKHOUSE_RESEARCH_READONLY_USER: ssm:///clickhouse-server/${ENV}/research_readonly/user
+  CLICKHOUSE_RESEARCH_READONLY_PASSWORD: ssm:///clickhouse-server/${ENV}/research_readonly/password # pragma: allowlist-secret not actually a secret
+  CLICKHOUSE_REDASH_USER: ssm:///clickhouse-server/redash/user
+  CLICKHOUSE_REDASH_PASSWORD: ssm:///clickhouse-server/redash/password # pragma: allowlist-secret not actually a secret
+  CLICKHOUSE_DATADOG_USER: ssm:///clickhouse-server/datadog/user
+  CLICKHOUSE_DATADOG_PASSWORD: ssm:///clickhouse-server/datadog/password # pragma: allowlist-secret not actually a secret
+  CLICKHOUSE_HOST: ssm:///api-server/chproxy_internal_host
+  CLICKHOUSE_HTTP_PORT: ssm:///clickhouse-server/${ENV}/port
+  CLICKHOUSE_READONLY_USER: ssm:///clickhouse-server/${ENV}/readonly/user
+  CLICKHOUSE_READONLY_PASSWORD: ssm:///clickhouse-server/${ENV}/readonly/password # pragma: allowlist-secret not actually a secret
+  CLICKHOUSE_TENANT_PASSWORD: "true" # pragma: allowlist-secret not actually a secret
+  FEATURES_APPLY_ENABLED: "false"
+  MODULE_NAME: app.main
+  POSTGRES_DB: ssm:///tf/tikal_rnd/rds/tf-${ENV}-${REGION_SHORT_NAME}-apisec-server-pgsql/name
+  POSTGRES_HOST: ssm:///tf/tikal_rnd/rds/tf-${ENV}-${REGION_SHORT_NAME}-apisec-server-pgsql/address
+  POSTGRES_PASSWORD: ssm:///tf/tikal_rnd/rds/tf-${ENV}-${REGION_SHORT_NAME}-apisec-server-pgsql/password # pragma: allowlist-secret not actually a secret
+  POSTGRES_USER: ssm:///tf/tikal_rnd/rds/tf-${ENV}-${REGION_SHORT_NAME}-apisec-server-pgsql/username
+  SERVER_PORT: "80"
+  USER_POOL_ID: ssm:///api-server/${ENV}/cognito/user_pool_id
+  VARIABLE_NAME: app
+  WORKER_CLASS: uvicorn.workers.UvicornWorker
+  ENABLE_UNIFIED_DATABASE: ssm:///clickhouse-server/${ENV}/enable_unified
+  DD_TRACE_AGENT_URL: ${DD_TRACE_AGENT_URL}
+  DD_ENV: ${ENV}
+  PAYMENTS_BUCKET: ssm:///payments/${ENV}/bucket_address
+  BACKOFFICE_BASE_URL: ssm:///api-server/backoffice_base_url
+  MIGRATIONS_PLAN: "all"
+  KAFKA_HOSTS: ssm:///kafka/${ENV}/bootstrap-servers
+  API_SERVER_EVENTS_KAFKA_TOPIC: ssm:///api-server/kafka/events_topic
+  BACKOFFICE_CLIENT_ID: ssm:///api-server/back-office/client_id
+  BACKOFFICE_CLIENT_SECRET: ssm:///api-server/back-office/client_secret # pragma: allowlist-secret not actually a secret
+  BACKOFFICE_TOKEN_URL: ssm:///back-office/cognito/token_url
+  CORS_ORIGIN: ${CORS_ORIGIN}
+  FRONTEND_BASE_URL: ssm:///tikal-frontend/${ENV}/base_url
+{{- end }}  
